@@ -4,10 +4,10 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "Microsoft.AspNetCore.Owin": "1.0.1",
-    "Microsoft.AspNetCore.DataProtection": "1.0.1",
-    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.1",
-    "Microsoft.AspNetCore.Server.Kestrel": "1.0.2",
+    "Microsoft.AspNetCore.Owin": "1.0.2",
+    "Microsoft.AspNetCore.DataProtection": "1.0.2",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.2",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.3",
     "Microsoft.Extensions.DependencyInjection": "1.0.1",
     "Microsoft.Owin": "3.0.0"
   },
@@ -20,7 +20,7 @@
     ]
   },
   "tools": {
-    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-*"
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview4-final"
   },
   "scripts": {
     "postpublish": "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"

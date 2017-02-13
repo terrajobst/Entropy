@@ -3,7 +3,7 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.2"
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.3"
   },
   "frameworks": {
     "net451": {
@@ -14,7 +14,7 @@
     "netcoreapp1.0": {
       "dependencies": {
         "Microsoft.NETCore.App": {
-          "version": "1.0.3",
+          "version": "1.0.4",
           "type": "platform"
         }
       }
