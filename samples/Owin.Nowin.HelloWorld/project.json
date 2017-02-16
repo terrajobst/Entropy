@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "Microsoft.AspNetCore.Hosting": "1.1.0",
-    "Microsoft.AspNetCore.Owin": "1.1.0",
-    "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
+    "Microsoft.AspNetCore.Hosting": "1.1.1",
+    "Microsoft.AspNetCore.Owin": "1.1.1",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.1.1",
     "NETStandard.Library": "1.6.1",
     "Nowin": "0.11.0"
   },
