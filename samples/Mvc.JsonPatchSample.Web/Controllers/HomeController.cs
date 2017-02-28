@@ -19,7 +19,7 @@ namespace JsonPatchSample.Web.Controllers
             {
                 var customer = CreateCustomer();
 
-                // Supply model state here to capture any errors which could result for invalid data.
+                // Supply model state here to capture any errors which could result from invalid data.
                 // For example, inserting a value at an invalid index in a list.
                 patchDoc.ApplyTo(customer, ModelState);
 
@@ -46,7 +46,7 @@ namespace JsonPatchSample.Web.Controllers
             {
                 var customer = CreateCustomer();
 
-                // Supply model state here to capture any errors which could result for invalid data.
+                // Supply model state here to capture any errors which could result from invalid data.
                 // For example, inserting a value at an invalid index in a list.
                 patchDoc.ApplyTo(customer, ModelState, prefix);
 
