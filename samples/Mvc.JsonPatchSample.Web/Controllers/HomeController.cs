@@ -14,10 +14,13 @@ namespace JsonPatchSample.Web.Controllers
         [HttpPatch]
         public IActionResult JsonPatchWithModelState([FromBody] JsonPatchDocument<Customer> patchDoc)
         {
+            // Check for model state here as the format(ex: structure) of the JSON patch request could be incorrect.
             if (patchDoc != null)
             {
                 var customer = CreateCustomer();
 
+                // Supply model state here to capture any errors which could result for invalid data.
+                // For example, inserting a value at an invalid index in a list.
                 patchDoc.ApplyTo(customer, ModelState);
 
                 if (!ModelState.IsValid)
@@ -25,7 +28,7 @@ namespace JsonPatchSample.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                return new ObjectResult(customer);
+                return Ok(customer);
             }
             else
             {
@@ -38,36 +41,48 @@ namespace JsonPatchSample.Web.Controllers
             [FromBody] JsonPatchDocument<Customer> patchDoc,
             string prefix)
         {
-            var customer = CreateCustomer();
+            // Check for model state here as the format(ex: structure) of the JSON patch request could be incorrect.
+            if (patchDoc != null)
+            {
+                var customer = CreateCustomer();
 
-            patchDoc.ApplyTo(customer, ModelState, prefix);
+                // Supply model state here to capture any errors which could result for invalid data.
+                // For example, inserting a value at an invalid index in a list.
+                patchDoc.ApplyTo(customer, ModelState, prefix);
 
-            if (!ModelState.IsValid)
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                return Ok(customer);
+            }
+            else
             {
                 return BadRequest(ModelState);
             }
-
-            return new ObjectResult(customer);
-        }
-
-        [HttpPatch]
-        public IActionResult JsonPatchWithoutModelState([FromBody] JsonPatchDocument<Customer> patchDoc)
-        {
-            var customer = CreateCustomer();
-
-            patchDoc.ApplyTo(customer);
-
-            return new ObjectResult(customer);
         }
 
         [HttpPatch]
         public IActionResult JsonPatchForProduct([FromBody] JsonPatchDocument<Product> patchDoc)
         {
-            var product = new Product();
+            if (patchDoc != null)
+            {
+                var product = new Product();
 
-            patchDoc.ApplyTo(product);
+                patchDoc.ApplyTo(product, ModelState);
 
-            return new ObjectResult(product);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                return Ok(product);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         private Customer CreateCustomer()

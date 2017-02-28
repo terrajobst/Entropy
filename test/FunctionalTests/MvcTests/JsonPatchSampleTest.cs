@@ -23,7 +23,6 @@ namespace EntropyTests
         public HttpClient Client { get; }
 
         [Theory]
-        [InlineData("http://localhost/jsonpatch/JsonPatchWithoutModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelStateAndPrefix?prefix=Patch")]
         public async Task JsonPatch_ValidAddOperation_Success(string url)
@@ -49,7 +48,6 @@ namespace EntropyTests
         }
 
         [Theory]
-        [InlineData("http://localhost/jsonpatch/JsonPatchWithoutModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelStateAndPrefix?prefix=Patch")]
         public async Task JsonPatch_ValidReplaceOperation_Success(string url)
@@ -75,7 +73,6 @@ namespace EntropyTests
         }
 
         [Theory]
-        [InlineData("http://localhost/jsonpatch/JsonPatchWithoutModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelStateAndPrefix?prefix=Patch")]
         public async Task JsonPatch_ValidCopyOperation_Success(string url)
@@ -101,7 +98,6 @@ namespace EntropyTests
         }
 
         [Theory]
-        [InlineData("http://localhost/jsonpatch/JsonPatchWithoutModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelStateAndPrefix?prefix=Patch")]
         public async Task JsonPatch_ValidMoveOperation_Success(string url)
@@ -129,7 +125,6 @@ namespace EntropyTests
         }
 
         [Theory]
-        [InlineData("http://localhost/jsonpatch/JsonPatchWithoutModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelStateAndPrefix?prefix=Patch")]
         public async Task JsonPatch_ValidRemoveOperation_Success(string url)
@@ -154,7 +149,6 @@ namespace EntropyTests
         }
 
         [Theory]
-        [InlineData("http://localhost/jsonpatch/JsonPatchWithoutModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelState")]
         [InlineData("http://localhost/jsonpatch/JsonPatchWithModelStateAndPrefix?prefix=Patch")]
         public async Task JsonPatch_MultipleValidOperations_Success(string url)
@@ -288,7 +282,7 @@ namespace EntropyTests
             {
                 Content = new StringContent(input, Encoding.UTF8, "application/json-patch+json"),
                 Method = new HttpMethod("PATCH"),
-                RequestUri = new Uri("http://localhost/jsonpatch/JsonPatchWithoutModelState")
+                RequestUri = new Uri("http://localhost/jsonpatch/JsonPatchWithModelState")
             };
 
             // Act
