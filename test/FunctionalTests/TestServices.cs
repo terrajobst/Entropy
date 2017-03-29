@@ -1,4 +1,4 @@
-// Copyright (c) .NET Foundation. All rights reserved.
+﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
@@ -65,10 +65,10 @@ namespace EntropyTests
                     ApplicationType = runtimeFlavor == RuntimeFlavor.Clr ? ApplicationType.Standalone : ApplicationType.Portable
                 };
 
-                using (var deployer = ApplicationDeployerFactory.Create(deploymentParameters, logger))
+                using (var deployer = ApplicationDeployerFactory.Create(deploymentParameters, factory))
                 {
                     Console.WriteLine($"Running deployment for {siteName}:{serverType}:{runtimeFlavor}:{architecture}");
-                    var deploymentResult = deployer.Deploy();
+                    var deploymentResult = await deployer.DeployAsync();
                     var httpClientHandler = new HttpClientHandler();
                     var httpClient = new HttpClient(httpClientHandler)
                     {
