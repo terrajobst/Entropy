@@ -46,6 +46,7 @@ namespace EntropyTests
             ServerType serverType,
             RuntimeFlavor runtimeFlavor,
             RuntimeArchitecture architecture,
+            string applicationBaseUrl,
             ITestOutputHelper xunitOutput,
             Func<HttpClient, ILogger, CancellationToken, Task> validator)
         {
@@ -56,6 +57,7 @@ namespace EntropyTests
             {
                 var deploymentParameters = new DeploymentParameters(GetApplicationDirectory(siteName), serverType, runtimeFlavor, architecture)
                 {
+                    ApplicationBaseUriHint = applicationBaseUrl,
                     SiteName = "HttpTestSite",
                     ServerConfigTemplateContent = serverType == ServerType.Nginx ? File.ReadAllText(Path.Combine(WorkingDirectory, "nginx.conf")) : string.Empty,
                     PublishApplicationBeforeDeployment = true,

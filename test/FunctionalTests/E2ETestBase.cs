@@ -1,9 +1,11 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+﻿﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+﻿using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Server.IntegrationTesting;
@@ -19,17 +21,20 @@ namespace EntropyTests
         private string _siteName;
         private ITestOutputHelper _output;
 
-        protected E2ETestBase(ITestOutputHelper output, string siteName)
+        protected E2ETestBase(ITestOutputHelper output, string siteName, int basePort)
         {
             _output = output;
             _siteName = siteName;
+            BasePort = basePort;
         }
+
+        public int BasePort { get; }
 
 #if NETCOREAPP1_1
         [Fact]
         public Task KestrelX64CoreCLR()
         {
-            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64);
+            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64, BasePort);
         }
 
         [ConditionalFact(Skip = "Skipped until https://github.com/aspnet/Hosting/issues/949")]
@@ -37,7 +42,7 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task KestrelX86CoreCLRWindows()
         {
-            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64);
+            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64, BasePort + 1);
         }
 
         [ConditionalFact]
@@ -45,7 +50,7 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task KestrelX64CLRWindows()
         {
-            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.Clr, RuntimeArchitecture.x64);
+            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.Clr, RuntimeArchitecture.x64, BasePort + 2);
         }
 
         [ConditionalFact(Skip = "Skipped until https://github.com/aspnet/Hosting/issues/949")]
@@ -53,7 +58,7 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task KestrelX86CLRWindows()
         {
-            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.Clr, RuntimeArchitecture.x86);
+            return RunTestAsync(ServerType.Kestrel, RuntimeFlavor.Clr, RuntimeArchitecture.x86, BasePort + 3);
         }
 
         [ConditionalFact]
@@ -61,7 +66,7 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task WebListenerX64CoreCLRWindows()
         {
-            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64);
+            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64, BasePort + 4);
         }
 
         [ConditionalFact(Skip = "Skipped until https://github.com/aspnet/Hosting/issues/949")]
@@ -69,7 +74,7 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task WebListenerX86CoreCLRWindows()
         {
-            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.CoreClr, RuntimeArchitecture.x86);
+            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.CoreClr, RuntimeArchitecture.x86, BasePort + 5);
         }
 
         [ConditionalFact]
@@ -77,7 +82,7 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task WebListenerX64CLRWindows()
         {
-            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.Clr, RuntimeArchitecture.x64);
+            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.Clr, RuntimeArchitecture.x64, BasePort + 6);
         }
 
         [ConditionalFact(Skip = "Skipped until https://github.com/aspnet/Hosting/issues/949")]
@@ -85,14 +90,14 @@ namespace EntropyTests
         [OSSkipCondition(OperatingSystems.MacOSX)]
         public Task WebListenerX86CLRWindows()
         {
-            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.Clr, RuntimeArchitecture.x86);
+            return RunTestAsync(ServerType.WebListener, RuntimeFlavor.Clr, RuntimeArchitecture.x86, BasePort + 7);
         }
 
         [ConditionalFact]
         [OSSkipCondition(OperatingSystems.Windows)]
         public Task NgnixX64NonWindows()
         {
-            return RunTestAsync(ServerType.Nginx, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64);
+            return RunTestAsync(ServerType.Nginx, RuntimeFlavor.CoreClr, RuntimeArchitecture.x64, BasePort + 8);
         }
 #elif NET46
         // E2E tests only need to be defined for one TFM.
@@ -107,8 +112,10 @@ namespace EntropyTests
             ServerType serverType,
             RuntimeFlavor runtimeFlavor,
             RuntimeArchitecture architecture,
+            int port,
             [CallerMemberName] string testName = null)
         {
+            var applicationBaseUrl = $"http://localhost:{port}";
             testName = $"{GetType().FullName}.{testName}";
             try
             {
@@ -118,6 +125,7 @@ namespace EntropyTests
                     serverType,
                     runtimeFlavor,
                     architecture,
+                    applicationBaseUrl,
                     _output,
                     ValidateAsync);
             }

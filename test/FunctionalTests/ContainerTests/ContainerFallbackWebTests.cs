@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+﻿﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Net.Http;
@@ -15,7 +15,7 @@ namespace EntropyTests.ContainerTests
     public class ContainerFallbackWebTests : E2ETestBase
     {
         public ContainerFallbackWebTests(ITestOutputHelper output)
-            : base(output, "Container.Fallback.Web")
+            : base(output, "Container.Fallback.Web", 6000)
         {
         }
 
@@ -37,7 +37,6 @@ namespace EntropyTests.ContainerTests
 @"---------- Done\r\n";
 
             var responseRegex = new Regex(responseMatcher, RegexOptions.Compiled | RegexOptions.Multiline);
-
 
             // ===== First call =====
             logger.LogInformation("First call");

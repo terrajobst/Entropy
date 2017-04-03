@@ -1,7 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using EntropyTests;
 using Xunit;
@@ -12,7 +9,7 @@ namespace FunctionalTests.LocalizationTests
     public class CustomResourceManagerTests : E2ETestBase
     {
         public CustomResourceManagerTests(ITestOutputHelper output)
-            : base(output, "Localization.CustomResourceManager")
+            : base(output, "Localization.CustomResourceManager", 9200)
         {
         }
 
