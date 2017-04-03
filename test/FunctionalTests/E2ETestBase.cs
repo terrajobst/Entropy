@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace EntropyTests
 {
     public abstract class E2ETestBase
