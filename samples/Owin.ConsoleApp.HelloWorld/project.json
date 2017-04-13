@@ -4,8 +4,8 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "Microsoft.AspNetCore.Owin": "1.1.1",
-    "Microsoft.Extensions.DependencyInjection": "1.1.0",
+    "Microsoft.AspNetCore.Owin": "1.1.2",
+    "Microsoft.Extensions.DependencyInjection": "1.1.1",
     "NETStandard.Library": "1.6.1",
     "Nowin": "0.11.0"
   },
