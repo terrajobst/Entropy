@@ -37,7 +37,11 @@ namespace Entropy.FunctionalTests
         [InlineData(ServerType.WebListener, RuntimeFlavor.CoreClr, RuntimeArchitecture.x86, ApplicationType.Standalone,
             Skip = "https://github.com/aspnet/Hosting/issues/949")]
         [InlineData(ServerType.Kestrel, RuntimeFlavor.Clr, RuntimeArchitecture.x64, ApplicationType.Standalone)]
+        [InlineData(ServerType.Kestrel, RuntimeFlavor.Clr, RuntimeArchitecture.x86, ApplicationType.Standalone,
+            Skip = "https://github.com/aspnet/Hosting/issues/949")]
         [InlineData(ServerType.WebListener, RuntimeFlavor.Clr, RuntimeArchitecture.x64, ApplicationType.Standalone)]
+        [InlineData(ServerType.WebListener, RuntimeFlavor.Clr, RuntimeArchitecture.x86, ApplicationType.Standalone,
+            Skip = "https://github.com/aspnet/Hosting/issues/949")]
         public Task WindowsOS(
             ServerType serverType,
             RuntimeFlavor runtimeFlavor,
