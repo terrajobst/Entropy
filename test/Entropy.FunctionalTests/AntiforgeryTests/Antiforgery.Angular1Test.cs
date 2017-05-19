@@ -1,11 +1,13 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 using Xunit;
 
@@ -29,15 +31,15 @@ namespace Entropy.FunctionalTests
             // Assert
             var setCookieHeaderValue = RetrieveAntiforgeryCookie(response);
             Assert.NotNull(setCookieHeaderValue);
-            Assert.False(string.IsNullOrEmpty(setCookieHeaderValue.Value));
-            Assert.Null(setCookieHeaderValue.Domain);
+            Assert.False(StringSegment.IsNullOrEmpty(setCookieHeaderValue.Value));
+            Assert.Null(setCookieHeaderValue.Domain.Value);
             Assert.Equal("/", setCookieHeaderValue.Path);
             Assert.False(setCookieHeaderValue.Secure);
 
             setCookieHeaderValue = RetrieveAntiforgeryToken(response);
             Assert.NotNull(setCookieHeaderValue);
-            Assert.False(string.IsNullOrEmpty(setCookieHeaderValue.Value));
-            Assert.Null(setCookieHeaderValue.Domain);
+            Assert.False(StringSegment.IsNullOrEmpty(setCookieHeaderValue.Value));
+            Assert.Null(setCookieHeaderValue.Domain.Value);
             Assert.Equal("/", setCookieHeaderValue.Path);
             Assert.False(setCookieHeaderValue.Secure);
         }
@@ -73,7 +75,7 @@ namespace Entropy.FunctionalTests
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/items");
 
             httpRequestMessage.Headers.Add("Cookie", $"{cookie.Name}={cookie.Value}");
-            httpRequestMessage.Headers.Add("X-XSRF-TOKEN", token.Value);
+            httpRequestMessage.Headers.Add("X-XSRF-TOKEN", token.Value.ToString());
 
             // Act
             var response = await Client.SendAsync(httpRequestMessage);
@@ -85,7 +87,7 @@ namespace Entropy.FunctionalTests
         private static SetCookieHeaderValue RetrieveAntiforgeryToken(HttpResponseMessage response)
         {
             return response.Headers.GetValues(HeaderNames.SetCookie)
-                .Select(setCookieValue => SetCookieHeaderValue.Parse(setCookieValue))
+                .Select(setCookieValue => SetCookieHeaderValue.Parse(setCookieValue.ToString()))
                 .Where(setCookieHeaderValue => setCookieHeaderValue.Name == "XSRF-TOKEN")
                 .FirstOrDefault();
         }
@@ -93,8 +95,8 @@ namespace Entropy.FunctionalTests
         private static SetCookieHeaderValue RetrieveAntiforgeryCookie(HttpResponseMessage response)
         {
             return response.Headers.GetValues(HeaderNames.SetCookie)
-                .Select(setCookieValue => SetCookieHeaderValue.Parse(setCookieValue))
-                .Where(setCookieHeaderValue => setCookieHeaderValue.Name.StartsWith(".AspNetCore.Antiforgery."))
+                .Select(setCookieValue => SetCookieHeaderValue.Parse(setCookieValue.ToString()))
+                .Where(setCookieHeaderValue => setCookieHeaderValue.Name.StartsWith(".AspNetCore.Antiforgery.", StringComparison.Ordinal))
                 .FirstOrDefault();
         }
     }
