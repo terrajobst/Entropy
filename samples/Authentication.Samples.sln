@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26823.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Cookies", "Authentication.Cookies\Authentication.Cookies.csproj", "{A864EAFD-562D-4DD7-83A9-8D8560790990}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.Cookies", "Authentication.Cookies\Authentication.Cookies.csproj", "{A864EAFD-562D-4DD7-83A9-8D8560790990}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication.ClaimsTransformation", "Authentication.ClaimsTransformation\Authentication.ClaimsTransformation.csproj", "{BE4E8C25-BF4A-44F9-ABE9-DED66E5BFD24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A864EAFD-562D-4DD7-83A9-8D8560790990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A864EAFD-562D-4DD7-83A9-8D8560790990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A864EAFD-562D-4DD7-83A9-8D8560790990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE4E8C25-BF4A-44F9-ABE9-DED66E5BFD24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE4E8C25-BF4A-44F9-ABE9-DED66E5BFD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE4E8C25-BF4A-44F9-ABE9-DED66E5BFD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE4E8C25-BF4A-44F9-ABE9-DED66E5BFD24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

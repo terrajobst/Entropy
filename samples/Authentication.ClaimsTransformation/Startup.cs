@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Authentication.Cookies
+namespace Authentication.ClaimsTransformer
 {
     public class Startup
     {
@@ -33,9 +33,8 @@ namespace Authentication.Cookies
                     options.LoginPath = "/account/login";
                 });
 
-            // Example of how to customize a particular instance of cookie options and
-            // is able to also use other services.
-            services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, ConfigureMyCookie>();
+            // claims transformation is run after every Authenticate call
+            services.AddTransient<IClaimsTransformation, ClaimsTransformer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
